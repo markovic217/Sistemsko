@@ -1,0 +1,15 @@
+C:\Users\gornj\Desktop\Sistemsko\Projekat\Projekat\bin\Debug\net7.0\Projekat.exe
+C:\Users\gornj\Desktop\Sistemsko\Projekat\Projekat\bin\Debug\net7.0\Projekat.deps.json
+C:\Users\gornj\Desktop\Sistemsko\Projekat\Projekat\bin\Debug\net7.0\Projekat.runtimeconfig.json
+C:\Users\gornj\Desktop\Sistemsko\Projekat\Projekat\bin\Debug\net7.0\Projekat.dll
+C:\Users\gornj\Desktop\Sistemsko\Projekat\Projekat\bin\Debug\net7.0\Projekat.pdb
+C:\Users\gornj\Desktop\Sistemsko\Projekat\Projekat\obj\Debug\net7.0\Projekat.csproj.AssemblyReference.cache
+C:\Users\gornj\Desktop\Sistemsko\Projekat\Projekat\obj\Debug\net7.0\Projekat.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gornj\Desktop\Sistemsko\Projekat\Projekat\obj\Debug\net7.0\Projekat.AssemblyInfoInputs.cache
+C:\Users\gornj\Desktop\Sistemsko\Projekat\Projekat\obj\Debug\net7.0\Projekat.AssemblyInfo.cs
+C:\Users\gornj\Desktop\Sistemsko\Projekat\Projekat\obj\Debug\net7.0\Projekat.csproj.CoreCompileInputs.cache
+C:\Users\gornj\Desktop\Sistemsko\Projekat\Projekat\obj\Debug\net7.0\Projekat.dll
+C:\Users\gornj\Desktop\Sistemsko\Projekat\Projekat\obj\Debug\net7.0\refint\Projekat.dll
+C:\Users\gornj\Desktop\Sistemsko\Projekat\Projekat\obj\Debug\net7.0\Projekat.pdb
+C:\Users\gornj\Desktop\Sistemsko\Projekat\Projekat\obj\Debug\net7.0\Projekat.genruntimeconfig.cache
+C:\Users\gornj\Desktop\Sistemsko\Projekat\Projekat\obj\Debug\net7.0\ref\Projekat.dll
