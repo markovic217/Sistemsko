@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gornj\\Desktop\\Sistemsko\\Projekat\\Projekat\\Projekat.csproj": {}
+    "C:\\Users\\gornj\\Desktop\\Sistemsko\\ProjekatGit\\Projekat\\Projekat.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gornj\\Desktop\\Sistemsko\\Projekat\\Projekat\\Projekat.csproj": {
+    "C:\\Users\\gornj\\Desktop\\Sistemsko\\ProjekatGit\\Projekat\\Projekat.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gornj\\Desktop\\Sistemsko\\Projekat\\Projekat\\Projekat.csproj",
+        "projectUniqueName": "C:\\Users\\gornj\\Desktop\\Sistemsko\\ProjekatGit\\Projekat\\Projekat.csproj",
         "projectName": "Projekat",
-        "projectPath": "C:\\Users\\gornj\\Desktop\\Sistemsko\\Projekat\\Projekat\\Projekat.csproj",
+        "projectPath": "C:\\Users\\gornj\\Desktop\\Sistemsko\\ProjekatGit\\Projekat\\Projekat.csproj",
         "packagesPath": "C:\\Users\\gornj\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gornj\\Desktop\\Sistemsko\\Projekat\\Projekat\\obj\\",
+        "outputPath": "C:\\Users\\gornj\\Desktop\\Sistemsko\\ProjekatGit\\Projekat\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\gornj\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,6 +39,12 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "System.Runtime.Caching": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

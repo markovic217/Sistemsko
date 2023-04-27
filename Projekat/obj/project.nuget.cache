@@ -1,8 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "UIFrGodFQEHHvSSUsI7ZImhdl2ZInlw54sQbx/r/Xq+p26+DtSdMJMRd3tsdJ4+4m7ME1308px2HcF8LiYkXKQ==",
+  "dgSpecHash": "RLsV83ygW0Jj2yqEgqCzJQx5wwvypFmrcFuIcu4LZy2qI0KLs6SGq7ETP3iOzK2BQfnI4EI3LNtFsDPMYhrtlQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\gornj\\Desktop\\Sistemsko\\Projekat\\Projekat\\Projekat.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\gornj\\Desktop\\Sistemsko\\ProjekatGit\\Projekat\\Projekat.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\gornj\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
+    "C:\\Users\\gornj\\.nuget\\packages\\system.configuration.configurationmanager\\7.0.0\\system.configuration.configurationmanager.7.0.0.nupkg.sha512",
+    "C:\\Users\\gornj\\.nuget\\packages\\system.diagnostics.eventlog\\7.0.0\\system.diagnostics.eventlog.7.0.0.nupkg.sha512",
+    "C:\\Users\\gornj\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512",
+    "C:\\Users\\gornj\\.nuget\\packages\\system.runtime.caching\\7.0.0\\system.runtime.caching.7.0.0.nupkg.sha512",
+    "C:\\Users\\gornj\\.nuget\\packages\\system.security.cryptography.protecteddata\\7.0.0\\system.security.cryptography.protecteddata.7.0.0.nupkg.sha512",
+    "C:\\Users\\gornj\\.nuget\\packages\\system.security.permissions\\7.0.0\\system.security.permissions.7.0.0.nupkg.sha512",
+    "C:\\Users\\gornj\\.nuget\\packages\\system.windows.extensions\\7.0.0\\system.windows.extensions.7.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
