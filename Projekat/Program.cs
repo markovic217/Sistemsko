@@ -36,7 +36,6 @@ namespace Projekat
 
         static void ProcessRequest(object state)
         {
-            Dictionary<int, byte[]> fileDictionary = new Dictionary<int, byte[]>();
             Stopwatch stopwatch = new Stopwatch();
             byte[] hashedFile;
 
@@ -52,6 +51,7 @@ namespace Projekat
                 context.Response.Close();
                 return;
             }
+
             CacheItem cachedItem = cache.GetCacheItem(filename);
             if (cachedItem != null)
             {
@@ -73,33 +73,27 @@ namespace Projekat
                 return;
             }
 
-            //hashedFile = Functions.ThreadChunkFunction(filepath);
-            //hashedFile = Functions.ThreadPoolHashFunction(filepath);
             hashedFile = Functions.ThreadPoolChunkFunction(filepath);
 
             stopwatch.Stop();
-
-            
+  
             ukupnoVreme += stopwatch.Elapsed;
             vremeProsecno = ukupnoVreme / putaProlazak++;
             Console.WriteLine($"Proteklo vreme: {stopwatch.Elapsed}");
             Console.WriteLine($"Prosecno vreme izvrsenja: {vremeProsecno}");
             Console.WriteLine($"Broj prolazaka {putaProlazak}");
             
-
             //Console.WriteLine($"Proteklo vreme: {stopwatch.Elapsed}");
             stopwatch.Reset();
 
-            
-
             CacheItem cacheItem = new CacheItem(filename, hashedFile);
             cache.Add(cacheItem, new CacheItemPolicy());
+
             context.Response.ContentType = "text/plain";
             context.Response.ContentLength64 = hashedFile.Length;
             context.Response.OutputStream.Write(hashedFile, 0, hashedFile.Length);
             context.Response.OutputStream.Close();
-            
-            
+                      
         }
     }
 }
