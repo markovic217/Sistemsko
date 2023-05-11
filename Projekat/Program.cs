@@ -16,13 +16,13 @@ namespace Projekat
         static TimeSpan vremeProsecno = new TimeSpan();
         static TimeSpan ukupnoVreme = new TimeSpan();
         static int putaProlazak = 1;
-        static readonly string rootFolder = @"C:\Users\gornj\Desktop\Sistemsko\ProjekatGit\Fajlovi"; // promeniti putanju u kojoj su fajlovi koji će biti kriptovani
+        static readonly string rootFolder = @"C:\Users\gornj\Desktop\Sistemsko\ProjekatGit\Fajlovi";
         static readonly string server = "http://localhost:5050/";
         static readonly MemoryCache cache = new MemoryCache("Memory cache");
         static void Main(string[] args)
         {
             HttpListener listener = new HttpListener();
-            listener.Prefixes.Add("http://localhost:5050/"); // promeniti po potrebi
+            listener.Prefixes.Add("http://localhost:5050/"); 
 
             listener.Start();
             Console.WriteLine("Listening...");

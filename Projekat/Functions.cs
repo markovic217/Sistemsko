@@ -25,7 +25,7 @@ namespace Projekat
             while (!gotova_obrada)
             {
                 Thread.Sleep(new TimeSpan(0, 0, 0, 0, 0, 100));
-                gotova_obrada = ThreadPool.PendingWorkItemCount == 0; //cekamo da obrada bude gotova
+                gotova_obrada = ThreadPool.PendingWorkItemCount == 0;
             }
 
             using (SHA256 sha256 = SHA256.Create())
