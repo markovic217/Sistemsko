@@ -8,6 +8,8 @@ using System.Drawing;
 using System.Diagnostics;
 using System.Runtime.Intrinsics.Arm;
 using System.Runtime.Caching;
+using System.Text;
+using System.Collections;
 
 namespace Projekat
 {
@@ -36,6 +38,7 @@ namespace Projekat
 
         static void ProcessRequest(object state)
         {
+            string result;
             Stopwatch stopwatch = new Stopwatch();
             byte[] hashedFile;
 
@@ -59,6 +62,8 @@ namespace Projekat
                 context.Response.ContentLength64 = ((byte[])cachedItem.Value).Length;
                 context.Response.OutputStream.Write((byte[])cachedItem.Value, 0, ((byte[])cachedItem.Value).Length);
                 context.Response.OutputStream.Close();
+               // result = System.Text.Encoding.UTF8.GetString((byte[])cachedItem.Value);
+               // Console.WriteLine(result);
                 Console.WriteLine("Pisanje iz kesa uspesno!");
                 return;
             }
@@ -81,17 +86,24 @@ namespace Projekat
             vremeProsecno = ukupnoVreme / putaProlazak++;
             Console.WriteLine($"Proteklo vreme: {stopwatch.Elapsed}");
             Console.WriteLine($"Prosecno vreme izvrsenja: {vremeProsecno}");
-            Console.WriteLine($"Broj prolazaka {putaProlazak}");
+            Console.WriteLine($"Broj prolazaka {putaProlazak - 1}");
             
             //Console.WriteLine($"Proteklo vreme: {stopwatch.Elapsed}");
             stopwatch.Reset();
 
             CacheItem cacheItem = new CacheItem(filename, hashedFile);
-            cache.Add(cacheItem, new CacheItemPolicy());
+            CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+            cacheItemPolicy.SlidingExpiration = new TimeSpan(0, 15, 0);
+            cache.Add(cacheItem, cacheItemPolicy);
 
+
+
+            //result = System.Text.Encoding.UTF8.GetString(hashedFile);
+            //Console.WriteLine(result);
+            //context.Response.ContentEncoding = Encoding.ASCII;
             context.Response.ContentType = "text/plain";
             context.Response.ContentLength64 = hashedFile.Length;
-            context.Response.OutputStream.Write(hashedFile, 0, hashedFile.Length);
+            context.Response.OutputStream.Write(hashedFile, 0, hashedFile.Length);           
             context.Response.OutputStream.Close();
                       
         }
