@@ -24,7 +24,7 @@ namespace Projekat
         static void Main(string[] args)
         {
             HttpListener listener = new HttpListener();
-            listener.Prefixes.Add("http://localhost:5050/"); 
+            listener.Prefixes.Add("http://localhost:5050/");
 
             listener.Start();
             Console.WriteLine("Listening...");
@@ -32,18 +32,16 @@ namespace Projekat
             while (true)
             {
                 HttpListenerContext context = listener.GetContext();
-                ProcessRequest(context);
+                Task task = Task.Run(() => { ProcessRequest(context); });
             }
         }
 
         static void ProcessRequest(object state)
         {
-            string result;
-            Stopwatch stopwatch = new Stopwatch();
             byte[] hashedFile;
-
             HttpListenerContext context = (HttpListenerContext)state;
 
+            Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             string filename = context.Request.Url.ToString().Substring(server.Length);
 
@@ -51,6 +49,11 @@ namespace Projekat
             {
                 Console.WriteLine("Nije naveden fajl!");
                 context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                context.Response.ContentType = "text/plain";
+                string data = $"Status code: {(int)HttpStatusCode.BadRequest}.\nNije naveden fajl!";
+                byte[] buffer = Encoding.UTF8.GetBytes(data);
+                context.Response.ContentLength64 = buffer.Length;
+                context.Response.OutputStream.Write(buffer, 0, buffer.Length);
                 context.Response.Close();
                 return;
             }
@@ -62,8 +65,6 @@ namespace Projekat
                 context.Response.ContentLength64 = ((byte[])cachedItem.Value).Length;
                 context.Response.OutputStream.Write((byte[])cachedItem.Value, 0, ((byte[])cachedItem.Value).Length);
                 context.Response.OutputStream.Close();
-               // result = System.Text.Encoding.UTF8.GetString((byte[])cachedItem.Value);
-               // Console.WriteLine(result);
                 Console.WriteLine("Pisanje iz kesa uspesno!");
                 return;
             }
@@ -74,38 +75,49 @@ namespace Projekat
             {
                 Console.WriteLine("Ne postoji tekstualni fajl u folderu!");
                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                context.Response.ContentType = "text/plain";
+                string data = $"Status code: {(int)HttpStatusCode.NotFound}.\nNe postoji tekstualni fajl u folderu!";
+                byte[] buffer = Encoding.UTF8.GetBytes(data);
+                context.Response.ContentLength64 = buffer.Length;
+                context.Response.OutputStream.Write(buffer, 0, buffer.Length);
                 context.Response.Close();
                 return;
             }
 
-            hashedFile = Functions.ThreadPoolChunkFunction(filepath);
+            //Thread.Sleep(4000);
 
-            stopwatch.Stop();
-  
-            ukupnoVreme += stopwatch.Elapsed;
-            vremeProsecno = ukupnoVreme / putaProlazak++;
-            Console.WriteLine($"Proteklo vreme: {stopwatch.Elapsed}");
-            Console.WriteLine($"Prosecno vreme izvrsenja: {vremeProsecno}");
-            Console.WriteLine($"Broj prolazaka {putaProlazak - 1}");
-            
-            //Console.WriteLine($"Proteklo vreme: {stopwatch.Elapsed}");
-            stopwatch.Reset();
+            Task<byte[]> hashingTask = Functions.ThreadPoolChunkFunction(filepath);
 
-            CacheItem cacheItem = new CacheItem(filename, hashedFile);
-            CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
-            cacheItemPolicy.SlidingExpiration = new TimeSpan(0, 15, 0);
-            cache.Add(cacheItem, cacheItemPolicy);
+            Task timerTask = Task.Run(async () =>
+            {
+                await hashingTask;
+                stopwatch.Stop();
 
+                ukupnoVreme += stopwatch.Elapsed;
+                vremeProsecno = ukupnoVreme / putaProlazak++;
+                Console.WriteLine($"Proteklo vreme: {stopwatch.Elapsed}");
+                Console.WriteLine($"Prosecno vreme izvrsenja: {vremeProsecno}");
+                Console.WriteLine($"Broj prolazaka {putaProlazak - 1}");
 
+                stopwatch.Reset();
+            });
 
-            //result = System.Text.Encoding.UTF8.GetString(hashedFile);
-            //Console.WriteLine(result);
-            //context.Response.ContentEncoding = Encoding.ASCII;
+            hashedFile = hashingTask.Result;
+
+            Task cachingTask = Task.Run(() =>
+            {
+                CacheItem cacheItem = new CacheItem(filename, hashedFile);
+                CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+                cacheItemPolicy.SlidingExpiration = new TimeSpan(0, 15, 0);
+                cache.Add(cacheItem, cacheItemPolicy);
+            });
+
             context.Response.ContentType = "text/plain";
+            context.Response.StatusCode = (int)HttpStatusCode.OK;
             context.Response.ContentLength64 = hashedFile.Length;
-            context.Response.OutputStream.Write(hashedFile, 0, hashedFile.Length);           
+            context.Response.OutputStream.Write(hashedFile, 0, hashedFile.Length);
             context.Response.OutputStream.Close();
-                      
+
         }
     }
 }
